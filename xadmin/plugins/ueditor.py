@@ -2,8 +2,8 @@
 
 import xadmin
 from xadmin.views import BaseAdminPlugin, CreateAdminView, UpdateAdminView
-from DjangoUeditor.models import UEditorField
-from DjangoUeditor.widgets import UEditorWidget
+from djangoueditor.models import UEditorField
+from djangoueditor.widgets import UEditorWidget
 from django.conf import settings
 
 

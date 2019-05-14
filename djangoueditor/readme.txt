@@ -10,23 +10,23 @@
 	**方法一：下载安装包，在命令行运行：
 		python setup.py install
 	**方法二：使用pip工具在命令行运行(推荐)：
-   		pip install DjangoUeditor
+   		pip install djangoueditor
 
-2、在INSTALL_APPS里面增加DjangoUeditor app，如下：
+2、在INSTALL_APPS里面增加djangoueditor app，如下：
      
 		INSTALLED_APPS = (
 			#........
-    		'DjangoUeditor',
+    		'djangoueditor',
 		)
 
 
 3、在urls.py中增加：
 
-	url(r'^ueditor/',include('DjangoUeditor.urls' )),
+	url(r'^ueditor/',include('djangoueditor.urls' )),
 
 4、在models中这样定义：
 	
-	from DjangoUeditor.models import UEditorField
+	from djangoueditor.models import UEditorField
 	class Blog(models.Model):
     	Name=models.CharField(,max_length=100,blank=True)
     	Content=UEditorField('内容	',height=100,width=500,default='test',imagePath="uploadimg/",imageManagerPath="imglib",toolbars='mini',options={"elementPathEnabled":True},filePath='upload',blank=True)
@@ -53,13 +53,13 @@
 
 	1: 使用forms.UEditorField
 
-	from  DjangoUeditor.forms import UEditorField
+	from  djangoueditor.forms import UEditorField
 	class TestUEditorForm(forms.Form):
 	    Description=UEditorField("描述",initial="abc",width=600,height=800)
 	
 	2: widgets.UEditorWidget
 
-	from  DjangoUeditor.widgets import UEditorWidget
+	from  djangoueditor.widgets import UEditorWidget
 	class TestUEditorForm(forms.Form):
 		Content=forms.CharField(label="内容",widget=UEditorWidget(width=800,height=500, imagePath='aa', filePath='bb',toolbars={}))
 	
@@ -128,7 +128,7 @@
       Description=UEditorField('描述',blank=True,imagePath=getUploadPath,toolbars="full")
       这上面model_instance就是当前model的实例对象。
       还需要这样定义表单对象：
-      from  DjangoUeditor.forms import UEditorModelForm
+      from  djangoueditor.forms import UEditorModelForm
       class UEditorTestModelForm(UEditorModelForm):
             class Meta:
                 model=Blog
@@ -147,7 +147,7 @@ class UEditorTestModelForm(UEditorModelForm):
 
 8、其他事项：
 
-    **本程序版本号采用a.b.ccc,其中a.b是本程序的号，ccc是ueditor的版本号，如1.2.122，1.2是DjangoUeditor的版本号，122指Ueditor 1.2.2.
+    **本程序版本号采用a.b.ccc,其中a.b是本程序的号，ccc是ueditor的版本号，如1.2.122，1.2是djangoueditor的版本号，122指Ueditor 1.2.2.
     **本程序安装包里面已经包括了Ueditor，不需要再额外安装。
     **目前暂时不支持ueditor的插件
     **别忘记了运行collectstatic命令，该命令可以将ueditor的所有文件复制到{{STATIC_ROOT}}文件夹里面

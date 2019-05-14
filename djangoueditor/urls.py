@@ -1,6 +1,6 @@
 # coding:utf-8
 from django import VERSION
-from DjangoUeditor.views import get_ueditor_controller
+from djangoueditor.views import get_ueditor_controller
 
 if VERSION[0:2] > (1, 3) and VERSION[0:2] < (2, 0):
     from django.conf.urls import patterns, url

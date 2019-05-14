@@ -2,7 +2,7 @@
 
 from django import forms
 from widgets import UEditorWidget
-from DjangoUeditor.models import UEditorField as ModelUEditorField
+from djangoueditor.models import UEditorField as ModelUEditorField
 
 class UEditorField(forms.CharField):
     def __init__(self,label,width=600, height=300, toolbars="full",imagePath="", filePath="",upload_settings={},settings={},command=None ,event_handler=None,*args,**kwargs):

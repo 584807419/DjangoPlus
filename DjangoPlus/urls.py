@@ -15,9 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from component import xadmin
+from django.conf.urls import include, url
+import xadmin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
+]
+urlpatterns += [
+    url(r'^api-auth/', include('rest_framework.urls'))
 ]

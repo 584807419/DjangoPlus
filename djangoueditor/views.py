@@ -1,7 +1,7 @@
 # coding:utf-8
 from importlib import import_module
 from django.http import HttpResponse
-import DjangoUeditor.settings as USettings
+import djangoueditor.settings as USettings
 import os
 import json
 from django.views.decorators.csrf import csrf_exempt
