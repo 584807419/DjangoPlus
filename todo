@@ -1,0 +1,4 @@
+开始配置celery 还需要做的有日志 邮件 缓存 drf 相关内容 还有tornado
+trace封装 装饰器最好了，调试好用
+
+最后搞成dockerfile

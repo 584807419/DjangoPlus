@@ -118,6 +118,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # Celery settings
+from kombu import Queue, Exchange
 
 CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 
@@ -126,3 +127,10 @@ CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_RESULT_BACKEND = 'db+sqlite:///results.sqlite'
 CELERY_TASK_SERIALIZER = 'json'
+CELERY_QUEUES = (
+    Queue('default', Exchange('default'), routing_key='default', exchange_type="topic"),
+    Queue('big_task', Exchange('big_task'), routing_key='big_task', exchange_type="topic"),
+    Queue('small_task', Exchange('small_task'), routing_key='small_task', exchange_type="topic")
+)
+
+class MyRouter(object)
