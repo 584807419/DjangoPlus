@@ -120,17 +120,26 @@ STATIC_URL = '/static/'
 # Celery settings
 from kombu import Queue, Exchange
 
-CELERY_BROKER_URL = 'pyamqp://guest@localhost//'
+CELERY_CONFIG_DETAIL_DICT = dict(
+    CELERY_BROKER_URL='pyamqp://guest@localhost//',  # 代理人的网址
+    CELERY_ACCEPT_CONTENT=['pickle', 'json', 'msgpack', 'yaml'],  # 指定任务接受的内容序列化类型(序列化)
+    CELERY_RESULT_BACKEND='db+sqlite:///results.sqlite',  # 结果存储地址
+    CELERYD_TASK_TIME_LIMIT=5,  # 任务超出5秒将被kill
+    CELERYD_PREFETCH_MULTIPLIER=4,  # 每次预取４个
+    CELERYD_FORCE_EXECV=True,  # 防止死锁
+    CELERYD_MAX_TASKS_PER_CHILD=500,  # 每个worker最多执行500次个任务就会被释放掉, 可防止内存泄露
+    CELERY_DISABLE_RATE_LIMITS=True,  # 关闭限速
+    CELERY_TASK_SERIALIZER='json',  # 任务序列化方式
+    CELERY_RESULT_SERIALIZER='json',  # 结果存储序列化格式为 json
 
-#: Only add pickle to this list if your broker is secured
-#: from unwanted access (see userguide/security.html)
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_RESULT_BACKEND = 'db+sqlite:///results.sqlite'
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_QUEUES = (
-    Queue('default', Exchange('default'), routing_key='default', exchange_type="topic"),
-    Queue('big_task', Exchange('big_task'), routing_key='big_task', exchange_type="topic"),
-    Queue('small_task', Exchange('small_task'), routing_key='small_task', exchange_type="topic")
+    CELERY_QUEUES=(
+        Queue('default', Exchange('default'), routing_key='default', exchange_type="topic"),
+        Queue('big_task', Exchange('big_task'), routing_key='big_task.#', exchange_type="topic"),
+        # 路由键以 task. 开头的消息进入此队列
+        Queue('small_task', Exchange('small_task'), routing_key='small_task', exchange_type="topic")
+    ),
+    CELERY_DEFAULT_QUEUE='default',  # 默认队列
+    CELERY_DEFAULT_EXCHANGE='default',  # 默认交换所
+    CELERY_DEFAULT_EXCHANGE_TYPE='topic',  # 默认交换所
+    CELERY_DEFAULT_ROUTING_KEY='default'  # 默认交换机路由键
 )
-
-class MyRouter(object)
