@@ -2,3 +2,12 @@
 trace封装 装饰器最好了，调试好用
 
 最后搞成dockerfile
+
+celery 的 配合 drf 来写demo
+drf用缓存 django 缓存
+https://cloud.tencent.com/developer/article/1105824
+
+
+都搞定后就按照文档一点点加demo ：
+django https://yiyibooks.cn/xx/django_182/index.html
+drf 官方文档

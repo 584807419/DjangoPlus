@@ -9,7 +9,8 @@ platforms.C_FORCE_ROOT = True  # 解决celery不能用root用户启动问题
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DjangoPlus.settings')  # 设置依赖的环境变量
 
-app = Celery('DjnagoPlus_Celery_Task', broker=settings.CELERY_BROKER_URL)  # 创建一个celery类的对象
+app = Celery('DjnagoPlus_Celery_Task', broker=settings.CELERY_CONFIG_DETAIL_DICT.get('CELERY_BROKER_URL'))
+# 创建一个celery类的对象
 
 app.autodiscover_tasks()  # 自动检索每个app下的tasks.py
 
@@ -76,6 +77,7 @@ class MyTask(celery.Task):
     result = a.test1.delay(4, 4)
     # delay 返回的是一个 AsyncResult 对象，里面存的就是一个异步的结果，当任务完成时result.ready() 为 true，然后用 result.get() 取结果即可
     """
+
     def on_success(self, retval, task_id, args, kwargs):
         """在任务执行成功时调用"""
         print("异步任务执行成功 返回值信息:{}".format(retval))
@@ -90,3 +92,11 @@ class MyTask(celery.Task):
 
 
 app.conf.update(**settings.CELERY_CONFIG_DETAIL_DICT, CELERY_ROUTES=(MyRouter(),))
+
+# mac上面开启rabbitmq
+# cd /usr/local/Cellar/rabbitmq/3.7.9/sbin
+# rabbitmq-server
+# http://localhost:15672/  guest/guest 可可视化查看队列状态
+
+# celery worker
+# 开启一个worker 用 celery -A DjangoPlus worker -l info 命令开启，即可工作
