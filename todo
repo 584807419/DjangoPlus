@@ -1,5 +1,28 @@
-开始配置celery 还需要做的有日志 邮件 缓存 drf 相关内容 还有tornado
-trace封装 装饰器最好了，调试好用
+大框架总体组件先配上
+
+xadmin
+ueditor
+celery
+rabbitmq
+drf
+
+
+
+
+小工具完善
+
+中间件等等
+还需要做的有
+日志
+ 邮件
+  缓存
+  测试
+  测试用例
+  测试框架等等
+   drf 相关内容
+trace封装
+ 装饰器最好了，调试好用
+ 日志相关
 
 最后搞成dockerfile
 
@@ -11,3 +34,6 @@ https://cloud.tencent.com/developer/article/1105824
 都搞定后就按照文档一点点加demo ：
 django https://yiyibooks.cn/xx/django_182/index.html
 drf 官方文档
+
+
+还有tornado

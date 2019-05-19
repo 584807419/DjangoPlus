@@ -1,6 +1,6 @@
-from django.conf.urls import include, url
+from django.urls import path
 from demo.views import Demo
 
 urlpatterns = [
-    url(r'^get_test/', Demo.as_view())
+    path('get_test/', Demo.as_view())
 ]

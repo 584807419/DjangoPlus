@@ -15,17 +15,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from django.conf.urls import include, url
+from django.conf.urls import include
 import xadmin
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('xadmin/', xadmin.site.urls),
-]
-urlpatterns += [
-    url(r'^api-auth/', include('rest_framework.urls'))
+    path('api-auth/', include('rest_framework.urls'))
 ]
 
 urlpatterns += [
-    url(r'^demo/', include('demo.urls'))
+    path('demo/', include('demo.urls'))
 ]

@@ -23,8 +23,9 @@ SECRET_KEY = '8qp@7ko#54)m(&b$8-qs7)myo*ma$fh2sd15q(r&jb7a347dd1'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+# DJANGO_LOG_LEVEL = DEBUG  # 这样可以看到Django的所以调试日志，这将会很冗长，因为它包含了所有的数据库查询记录
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -144,3 +145,76 @@ CELERY_CONFIG_DETAIL_DICT = dict(
     CELERY_DEFAULT_EXCHANGE_TYPE='topic',  # 默认交换所
     CELERY_DEFAULT_ROUTING_KEY='default'  # 默认交换机路由键
 )
+
+# log configuration
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
+            # 它输出日志级别、日志消息，以及时间、进程、线程和生成日志消息的模块。
+            'style': '{',
+        },
+        'simple': {
+            'format': '{asctime} {module} {levelname} {message}',
+            # 它只输出日志的级别（例如，DEBUG）和日志消息。
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        # 'file': {
+        #     'level': 'DEBUG',
+        #     'class': 'logging.FileHandler',
+        #     'filename': '/Users/zhangkun/Documents/GitHub/DjangoPlus/DjangoPlus.log',
+        # },
+        'request': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/Users/zhangkun/Documents/GitHub/DjangoPlus/DjangoPlus_Request.log',
+        },
+        'db': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': '/Users/zhangkun/Documents/GitHub/DjangoPlus/DjangoPlus_Db.log'
+        },
+        'error': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': '/Users/zhangkun/Documents/GitHub/DjangoPlus/DjangoPlus_Error.log',
+            # 'filters': ['require_debug_true'],
+        },
+    },
+    'loggers': {
+        # django 是一个捕获所有信息的logger。消息不会直接提交给这个logger。
+        # 'django': {
+        #     'level': 'DEBUG',
+        #     'handlers': ['file'],
+        # },
+        # 记录与处理请求相关的消息。5XX 响应作为ERROR 消息；4XX 响应作为WARNING 消息。
+        'django.request': {
+            'level': 'DEBUG',
+            'handlers': ['request'],
+        },
+        # Log messages related to the handling of requests received by the server invoked by the runserver command. HTTP 5XX responses are logged as ERROR messages, 4XX responses are logged as WARNING messages, and everything else is logged as INFO.
+        'django.server': {
+            'level': 'DEBUG',
+            'handlers': ['request'],
+        },
+        # 与数据库交互的代码相关的消息。例如，HTTP请求执行应用级别的SQL 语句将以DEBUG 级别记录到该logger。
+        'django.db.backends': {
+            'level': 'DEBUG',
+            'handlers': ['db'],
+        },
+        'error_log': {
+            'handlers': ['error'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
