@@ -7,7 +7,7 @@ from demo.tasks import add, big_task
 from common_tools.debug_tool import trace_execption
 import logging
 
-LOG = logging.getLogger('error_log') # 拿到logger对象
+LOG = logging.getLogger('error_log')  # 拿到logger对象
 
 
 # Create your views here.
@@ -15,11 +15,10 @@ LOG = logging.getLogger('error_log') # 拿到logger对象
 class Demo(APIView):
     @trace_execption
     def get(self, request):
-        a = 9/0
+        # a = 9 / 0
         # big_task.delay('zhangkun')
-        res = Company.objects.all()
-        LOG.info('666666666666666info')
-        LOG.warning('6666666666666666warn')
-        LOG.error('666666666666666666error')
-        LOG.error('res:{}'.format(res))
+        # res = Company.objects.all()
+
+        from common_tools.email_tool import send_email
+        send_email('测试', '张昆',to_address='qq.com')
         return Response({"success": 'ali'})
