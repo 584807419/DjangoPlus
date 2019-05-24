@@ -6,6 +6,7 @@ from DjangoPlus.celery import app, MyTask
 from demo.tasks import add, big_task
 from common_tools.debug_tool import trace_execption
 import logging
+import pysnooper
 
 LOG = logging.getLogger('error_log')  # 拿到logger对象
 
@@ -20,5 +21,14 @@ class Demo(APIView):
         # res = Company.objects.all()
 
         from common_tools.email_tool import send_email
-        send_email('测试', '张昆',to_address='qq.com')
+        send_email('测试', '张昆', to_address='qq.com')
+        return Response({"success": 'ali'})
+
+import pysnooper
+class Demo1(APIView):
+    @pysnooper.snoop()
+    def get(self, request):
+        a = 9
+        b = 8
+        c = 'zhangkun'
         return Response({"success": 'ali'})
