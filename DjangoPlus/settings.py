@@ -225,3 +225,20 @@ EMAIL_HOST = '127.0.0.1'
 EMAIL_PORT = 1025
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
+
+# cache
+# 使用文件系统缓存确保文件夹的读写权限正常
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/var/tmp/django_cache',
+        'TIMEOUT': 30,
+        'OPTIONS': {
+            'MAX_ENTRIES': 1000,
+            'CULL_FREQUENCY': 2,
+        },
+        'KEY_PREFIX': 'DjangoPlus_cache',
+        'VERSION': 1,
+
+    }
+}

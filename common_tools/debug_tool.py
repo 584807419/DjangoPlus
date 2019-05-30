@@ -1,5 +1,6 @@
 import traceback
 import logging
+import pysnooper
 
 LOG = logging.getLogger('error_log')
 

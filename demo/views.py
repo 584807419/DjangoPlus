@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from demo.models import Company
@@ -32,3 +34,9 @@ class Demo1(APIView):
         b = 8
         c = 'zhangkun'
         return Response({"success": 'ali'})
+
+import pysnooper
+class Demo2(APIView):
+    def get(self, request):
+        import time
+        return Response({"success": time.time()})
