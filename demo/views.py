@@ -39,4 +39,6 @@ import pysnooper
 class Demo2(APIView):
     def get(self, request):
         import time
-        return Response({"success": time.time()})
+        from .models import Company
+        aa = Company.objects.all()
+        return Response({"success": time.time(),'aa':aa[0].name})

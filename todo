@@ -11,24 +11,22 @@ drf
 二、小工具完善
 日志 配置使用
 traceback 封装为装饰器
+缓存,drf用django的缓存，url缓存
 
 ------------------------------------------------------------------------------------------------------------------------
 # todo
 
 
 小工具完善
-  缓存
   测试
   测试用例
   测试框架等等
    drf 相关内容
-      中间件
-
+   中间件
 pysnooper
 最后搞成dockerfile
 
 celery 的 配合 drf 来写demo
-drf用缓存 django 缓存
 https://cloud.tencent.com/developer/article/1105824
 
 
