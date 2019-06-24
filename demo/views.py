@@ -7,6 +7,7 @@ from demo.models import Company
 from DjangoPlus.celery import app, MyTask
 from demo.tasks import add, big_task
 from common_tools.debug_tool import trace_execption
+from demo.mixin import QueryTest
 import logging
 import pysnooper
 
@@ -26,7 +27,10 @@ class Demo(APIView):
         send_email('测试', '张昆', to_address='qq.com')
         return Response({"success": 'ali'})
 
+
 import pysnooper
+
+
 class Demo1(APIView):
     @pysnooper.snoop()
     def get(self, request):
@@ -35,10 +39,16 @@ class Demo1(APIView):
         c = 'zhangkun'
         return Response({"success": 'ali'})
 
-import pysnooper
+
 class Demo2(APIView):
     def get(self, request):
         import time
         from .models import Company
         aa = Company.objects.all()
-        return Response({"success": time.time(),'aa':aa[0].name})
+        return Response({"success": time.time(), 'aa': aa[0].name})
+
+
+class Demo3(APIView, QueryTest):
+    def get(self, request):
+        self.temp_dict[id(request)] = id(request)
+        return Response(self.temp_dict)
