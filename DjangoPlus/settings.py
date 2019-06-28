@@ -180,16 +180,19 @@ LOGGING = {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
             'filename': '/Users/zhangkun/Documents/GitHub/DjangoPlus/DjangoPlus_Request.log',
+            'encoding': 'utf8',
         },
         'db': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': '/Users/zhangkun/Documents/GitHub/DjangoPlus/DjangoPlus_Db.log'
+            'filename': '/Users/zhangkun/Documents/GitHub/DjangoPlus/DjangoPlus_Db.log',
+            'encoding': 'utf8',
         },
         'error': {
             'level': 'ERROR',
             'class': 'logging.FileHandler',
             'filename': '/Users/zhangkun/Documents/GitHub/DjangoPlus/DjangoPlus_Error.log',
+            'encoding': 'utf8',
             # 'filters': ['require_debug_true'],
         },
     },
