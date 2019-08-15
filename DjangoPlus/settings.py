@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'demo',
     'polls',
+    'demo_with_redis',
     # 'video_editing_software'
 ]
 

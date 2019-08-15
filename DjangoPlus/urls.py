@@ -28,6 +28,7 @@ urlpatterns = [
 urlpatterns += [
     path('demo/', include('demo.urls')),
     path('polls/', include('polls.urls')),
+    path('demo_with_redis/', include('demo_with_redis.urls')),
     # path('videotools/', include('video_editing_software.urls')),
 ]
 
