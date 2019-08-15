@@ -26,7 +26,9 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    path('demo/', include('demo.urls'))
+    path('demo/', include('demo.urls')),
+    path('polls/', include('polls.urls')),
+    # path('videotools/', include('video_editing_software.urls')),
 ]
 
 if settings.DEBUG:

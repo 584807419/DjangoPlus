@@ -40,7 +40,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'debug_toolbar',
-    'demo'
+    'demo',
+    'polls',
+    # 'video_editing_software'
 ]
 
 MIDDLEWARE = [
@@ -60,8 +62,7 @@ ROOT_URLCONF = 'DjangoPlus.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -234,20 +235,40 @@ EMAIL_HOST_PASSWORD = ''
 
 # cache
 # 使用文件系统缓存确保文件夹的读写权限正常
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+#         'LOCATION': '/var/tmp/django_cache',
+#         'TIMEOUT': 30,
+#         'OPTIONS': {
+#             'MAX_ENTRIES': 1000,
+#             'CULL_FREQUENCY': 2,
+#         },
+#         'KEY_PREFIX': 'DjangoPlus_cache',
+#         'VERSION': 1,
+#
+#     }
+# }
+
+# 使用redis缓存
 CACHES = {
     'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': '/var/tmp/django_cache',
-        'TIMEOUT': 30,
-        'OPTIONS': {
-            'MAX_ENTRIES': 1000,
-            'CULL_FREQUENCY': 2,
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379',
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+             # "PASSWORD": "yoursecret",
         },
-        'KEY_PREFIX': 'DjangoPlus_cache',
-        'VERSION': 1,
-
-    }
+    },
 }
+
+
+REDIS_TIMEOUT=7*24*60*60
+CUBES_REDIS_TIMEOUT=60*60
+NEVER_REDIS_TIMEOUT=365*24*60*60
 
 # debug toolbar
 INTERNAL_IPS = ['127.0.0.1', ]
+
+MEDIA_ROOT = os.path.join(BASE_DIR,'media_file') # 作为Django存储上传文件的路径(从性能上考虑，这些文件不能存在数据库中。)
+MEDIA_URL = 'media_file/'

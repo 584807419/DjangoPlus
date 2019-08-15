@@ -1,3 +1,6 @@
+import requests
+import json
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 
@@ -52,3 +55,13 @@ class Demo3(APIView, QueryTest):
     def get(self, request):
         self.temp_dict[id(request)] = id(request)
         return Response(self.temp_dict)
+
+
+def get_test(request, id):
+        temp_dict = dict()
+        res = requests.get('https://rss.itunes.apple.com/api/v1/us/ios-apps/top-free/all/100/explicit.json')
+        res_json = json.loads(res.content)
+        for k, v in enumerate(res_json.get('feed').get('results')):
+            if k + 1 == int(id):
+                temp_dict[v.get('name')] = v.get('artworkUrl100')
+        return JsonResponse(temp_dict)

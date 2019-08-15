@@ -1,13 +1,6 @@
-from django.urls import path
-from demo.views import Demo
-from demo.views import Demo1
-from demo.views import Demo2
-from demo.views import Demo3
-from common_tools.cache_tool import url_cache
-
+from django.conf.urls import url
+from demo import views
 urlpatterns = [
-    path('get_test/', Demo.as_view()),
-    path('get_test1/', Demo1.as_view()),
-    path('get_test2/', url_cache()(Demo2.as_view())),  # 缓存的使用
-    path('get_test3/', Demo3.as_view()),
+
+    url(r'top/free/(?P<id>[0-9]+)/$', views.get_test),
 ]
