@@ -22,7 +22,7 @@ odfpy==1.4.0
 openpyxl==2.6.2
 PySnooper==0.0.39
 pytz==2019.1
-PyYAML==5.1
+PyYAML==5.4
 six==1.12.0
 sqlparse==0.3.0
 tablib==0.13.0
